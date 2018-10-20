@@ -1,0 +1,7 @@
+---
+- name: service saslauthd restart
+  service: name=saslauthd state=restarted
+
+- name: service saslauthd reload
+  service: name=saslauthd state=reloaded
+

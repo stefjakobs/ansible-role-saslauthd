@@ -1,0 +1,28 @@
+---
+
+- name: install sasl2-bin
+  apt: name=sasl2-bin state=latest
+
+- name: create sasl dir
+  file: path=/etc/postfix/sasl state=directory mode=0755 owner='root' group='root'
+
+- name: configure smtpd
+  copy:
+    src: smtpd.conf
+    dest: /etc/postfix/sasl/smtpd.conf
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: service saslauthd restart
+
+- name: configure saslauthd
+  template:
+    src: saslauthd.default.j2
+    dest: /etc/default/saslauthd
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: service saslauthd restart
+
+- name: ensure saslauthd enabled
+  service: name=saslauthd enabled=yes state=started
