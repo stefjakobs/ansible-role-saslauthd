@@ -1,13 +1,20 @@
 ---
 
 - name: install sasl2-bin
-  apt: name=sasl2-bin state=latest
+  ansible.builtin.apt:
+    name: ['sasl2-bin', 'libsasl2-modules']
+    state: present
 
 - name: create sasl dir
-  file: path=/etc/postfix/sasl state=directory mode=0755 owner='root' group='root'
+  ansible.builtin.file:
+    path: /etc/postfix/sasl
+    state: directory
+    mode: 0755
+    owner: 'root'
+    group: 'root'
 
 - name: configure smtpd
-  copy:
+  ansible.builtin.copy:
     src: smtpd.conf
     dest: /etc/postfix/sasl/smtpd.conf
     owner: 'root'
@@ -16,7 +23,7 @@
   notify: service saslauthd restart
 
 - name: configure saslauthd
-  template:
+  ansible.builtin.template:
     src: saslauthd.default.j2
     dest: /etc/default/saslauthd
     owner: 'root'
@@ -25,4 +32,7 @@
   notify: service saslauthd restart
 
 - name: ensure saslauthd enabled
-  service: name=saslauthd enabled=yes state=started
+  ansible.builtin.service:
+    name: saslauthd
+    enabled: true
+    state: started

@@ -1,0 +1,3 @@
+---
+
+saslauthd_socket: '/var/run/saslauthd'

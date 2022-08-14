@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  role_name: saslauthd
+  namespace: stefjakobs
+  author: Stefan Jakobs <projects@localside.net>
+  description: Install and configure saslauthd
+  license: MIT
+  min_ansible_version: 2.9.0
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+  galaxy_tags:
+    - saslauthd
+dependencies: []

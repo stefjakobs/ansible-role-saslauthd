@@ -1,0 +1,3 @@
+---
+
+saslauthd_options_default: "-c -m {{ saslauthd_socket }}"
